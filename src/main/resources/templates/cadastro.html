@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro de Sandália</title>
+    <!-- Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+    <!-- Custom CSS -->
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cadastrar Nova Sandália</h2>
+    <form th:action="@{/cadastrar}" th:object="${sandalia}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="imageUri" class="form-label">Imagem</label>
+            <input type="file" class="form-control" id="imageUri" name="imageUri" required>
+        </div>
+        <div class="mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <input type="text" class="form-control" id="marca" name="marca" th:value="${sandalia.marca}" required>
+        </div>
+        <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo</label>
+            <input type="text" class="form-control" id="modelo" name="modelo" th:value="${sandalia.modelo}" required>
+        </div>
+        <div class="mb-3">
+            <label for="tamanho" class="form-label">Tamanho</label>
+            <input type="number" class="form-control" id="tamanho" name="tamanho" th:value="${sandalia.tamanho}" required>
+        </div>
+        <div class="mb-3">
+            <label for="preco" class="form-label">Preço</label>
+            <input type="number" class="form-control" id="preco" name="preco" step="0.01" th:value="${sandalia.preco}" required>
+        </div>
+        <div class="mb-3">
+            <label for="cor" class="form-label">Cor</label>
+            <input type="text" class="form-control" id="cor" name="cor" th:value="${sandalia.cor}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

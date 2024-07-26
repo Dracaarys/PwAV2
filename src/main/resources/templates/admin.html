@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin - Sandálias</title>
+    <!-- Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+    <!-- Custom CSS -->
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<div class="container">
+    <h2>Admin - Sandálias</h2>
+    <a href="/cadastro" class="btn btn-primary mb-3">Cadastrar Nova Sandália</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imagem</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Tamanho</th>
+            <th>Preço</th>
+            <th>Cor</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sandalia : ${sandalias}">
+            <td th:text="${sandalia.id}"></td>
+            <td>
+                <!-- Use o th:src corretamente e verifique se a URL está acessível -->
+                <img th:src="@{${sandalia.imageUri}}" alt="Imagem" style="width: 100px;"/>
+            </td>
+            <td th:text="${sandalia.marca}"></td>
+            <td th:text="${sandalia.modelo}"></td>
+            <td th:text="${sandalia.tamanho}"></td>
+            <td th:text="${sandalia.preco}"></td>
+            <td th:text="${sandalia.cor}"></td>
+            <td>
+                <a th:href="@{/editar/{id}(id=${sandalia.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/deletar/{id}(id=${sandalia.id})}" class="btn btn-danger btn-sm">Deletar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

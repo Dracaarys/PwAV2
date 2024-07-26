@@ -1,10 +1,7 @@
 package pwav2.com.pw.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -44,6 +41,15 @@ public class Sandalia {
 
     @NotBlank(message = "O campo 'cor' não pode conter caracteres em branco.")
     private String cor;
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (imageUri == null || id == null) return null;
+
+        return imageUri;
+
+    }
+
 
     public void regrasDeNegocioParaCadastro(){
         marca = marca.toUpperCase();
