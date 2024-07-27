@@ -20,7 +20,7 @@ public class UsuarioController {
         return "register";
     }
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/register")
     public String registerUser(
             @RequestParam("nome") String nome,
             @RequestParam("cpf") String cpf,
@@ -39,6 +39,8 @@ public class UsuarioController {
         usuarioService.create(usuario);
 
         model.addAttribute("message", "Usuário cadastrado com sucesso!");
-        return "register";
+        return "login";
     }
+
+
 }
