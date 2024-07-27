@@ -16,17 +16,18 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/login","register", "/cadastrar", "/assets/", "/css/", "/imgs/", "/js/").permitAll()
-                        .requestMatchers("/admin/**","/index").hasRole("ADMIN")
-                        .requestMatchers("/index","/","/carrinhoPage").hasRole("USER")
+                        .requestMatchers("/admin/**","/cadastro","admin/editar/","admin/deletar/").hasRole("ADMIN")
+                        .requestMatchers("/index","/carrinhoPage","adicionarCarrinho/","finalizarCompra").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        .defaultSuccessUrl("/index", true)
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/perform_logout")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
                 .csrf(csrf -> csrf.disable());

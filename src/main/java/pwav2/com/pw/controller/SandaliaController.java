@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -71,9 +73,22 @@ public class SandaliaController {
     }
 
     @GetMapping("/")
-    public String listarSandaliasParaVenda(Model model) {
+    public String listarSandaliasParaVenda(Model model, HttpServletResponse response) {
+        // Adiciona o cookie "visita" com a data e hora do acesso
+        LocalDateTime now = LocalDateTime.now();
+        String formattedDateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss")); // substitui espaços por underscores
+        Cookie visitCookie = new Cookie("visita", formattedDateTime);
+        visitCookie.setMaxAge(24 * 60 * 60); // 24 horas em segundos
+        visitCookie.setPath("/"); // Torna o cookie disponível para toda a aplicação
+        response.addCookie(visitCookie);
+
         List<Sandalia> sandalias = sandaliaRepository.findByIsDeletedIsFalse();
         model.addAttribute("sandalias", sandalias);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        model.addAttribute("username", username);
+
         return "index";
     }
 
@@ -151,7 +166,7 @@ public class SandaliaController {
             carrinho.add(sandalia);
         }
         session.setAttribute("carrinho", carrinho);
-        response.sendRedirect("/carrinhoPage");
+        response.sendRedirect("/");
     }
 
     @GetMapping("/carrinhoPage")
@@ -161,7 +176,7 @@ public class SandaliaController {
 
         if (carrinho == null || carrinho.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "O seu carrinho está vazio.");
-            return "redirect:/index";
+            return "redirect:/";
         } else {
             model.addAttribute("carrinho", carrinho);
             model.addAttribute("quantidadeProdutos", carrinho.size());
@@ -209,7 +224,18 @@ public class SandaliaController {
 //
 //        model.addAttribute("lastAccess", lastAccess); // Adicionar a data e hora de acesso ao modelo
 //        return "index";
-//    }
+//    } APLIQUEI OUTRO COOKIE EM USUARIO CONTROLLER
+
+    @GetMapping("/finalizarCompra")
+    public String finalizarCompra(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.removeAttribute("carrinho"); // Remove os itens do carrinho da sessão
+        }
+        return "redirect:/"; // Redireciona para a página index
+    }
+
+
 
 
 

@@ -28,17 +28,13 @@ public class LoginController {
             @RequestParam("password") String password,
             Model model) {
 
-        // Aqui você pode adicionar a lógica para autenticar o usuário
-        // Essa implementação assume que o Spring Security é configurado para autenticação.
-        // O Spring Security normalmente não precisa dessa lógica, já que ele trata da autenticação.
-
         // Simplesmente redireciona para a página inicial após login bem-sucedido
         return "redirect:/index";
     }
 
     @GetMapping("/index")
     public String home(Model model) {
-        // Adicione qualquer lógica necessária para a página inicial
-        return "index"; // Certifique-se de que você tem uma página chamada index.html
+
+        return "index"; //
     }
 }
