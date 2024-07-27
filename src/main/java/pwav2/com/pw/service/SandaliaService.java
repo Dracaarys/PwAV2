@@ -39,4 +39,5 @@ public class SandaliaService {
     public List<Sandalia> findAll() {
         return repository.findAll();
     }
+
 }

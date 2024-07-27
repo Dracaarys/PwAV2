@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Sandália</title>
+    <!-- Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+    <!-- Custom CSS -->
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<div class="container">
+    <h2>Editar Sandália</h2>
+    <form th:action="@{/admin/editar/{id}(id=${sandalia.id})}" th:object="${sandalia}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="marca">Marca</label>
+            <input type="text" class="form-control" id="marca" name="marca" th:value="${sandalia.marca}" required>
+        </div>
+        <div class="form-group">
+            <label for="modelo">Modelo</label>
+            <input type="text" class="form-control" id="modelo" name="modelo" th:value="${sandalia.modelo}" required>
+        </div>
+        <div class="form-group">
+            <label for="tamanho">Tamanho</label>
+            <input type="number" class="form-control" id="tamanho" name="tamanho" th:value="${sandalia.tamanho}" required>
+        </div>
+        <div class="form-group">
+            <label for="preco">Preço</label>
+            <input type="number" step="0.01" class="form-control" id="preco" name="preco" th:value="${sandalia.preco}" required>
+        </div>
+        <div class="form-group">
+            <label for="cor">Cor</label>
+            <input type="text" class="form-control" id="cor" name="cor" th:value="${sandalia.cor}" required>
+        </div>
+        <div class="form-group">
+            <label for="imageUri">Imagem</label>
+            <input type="file" class="form-control-file" id="imageUri" name="imageUri">
+        </div>
+        <div class="form-group">
+            <img th:src="@{${sandalia.imageUri}}" alt="Imagem Atual" style="width: 100px;"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="/admin" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

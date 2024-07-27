@@ -15,6 +15,12 @@
 <div class="container">
     <h2>Admin - Sandálias</h2>
     <a href="/cadastro" class="btn btn-primary mb-3">Cadastrar Nova Sandália</a>
+
+    <!-- Exibir mensagens de sucesso -->
+    <div th:if="${successMessage}" class="alert alert-success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -32,7 +38,6 @@
         <tr th:each="sandalia : ${sandalias}">
             <td th:text="${sandalia.id}"></td>
             <td>
-                <!-- Use o th:src corretamente e verifique se a URL está acessível -->
                 <img th:src="@{${sandalia.imageUri}}" alt="Imagem" style="width: 100px;"/>
             </td>
             <td th:text="${sandalia.marca}"></td>
@@ -41,8 +46,8 @@
             <td th:text="${sandalia.preco}"></td>
             <td th:text="${sandalia.cor}"></td>
             <td>
-                <a th:href="@{/editar/{id}(id=${sandalia.id})}" class="btn btn-warning btn-sm">Editar</a>
-                <a th:href="@{/deletar/{id}(id=${sandalia.id})}" class="btn btn-danger btn-sm">Deletar</a>
+                <a th:href="@{/admin/editar/{id}(id=${sandalia.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/admin/deletar/{id}(id=${sandalia.id})}" class="btn btn-danger btn-sm">Deletar</a>
             </td>
         </tr>
         </tbody>

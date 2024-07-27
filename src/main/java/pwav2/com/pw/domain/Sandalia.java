@@ -42,6 +42,8 @@ public class Sandalia {
     @NotBlank(message = "O campo 'cor' não pode conter caracteres em branco.")
     private String cor;
 
+    private Long deletedAt;
+
     @Transient
     public String getPhotosImagePath() {
         if (imageUri == null || id == null) return null;
